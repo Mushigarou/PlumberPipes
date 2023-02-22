@@ -33,6 +33,10 @@ lib :
 re_lib :
 	make fclean -C Libft
 
+debug :
+	make
+	$(CC) $(CFLAGS) -fsanitize=address $(OBJ_M_SRC_PATH) $(LIBFT_ARCHIVE) -o $(NAME)
+
 clean :
 	make clean -C Libft
 	$(RM) obj
@@ -42,5 +46,5 @@ fclean : clean re_lib
 
 re : re_lib fclean all
 
-.PHONY : all $(NAME) clean fclean re lib dir re_lib
+.PHONY : all $(NAME) clean fclean re lib dir re_lib debug
 .DEFAULT_GOAL := all

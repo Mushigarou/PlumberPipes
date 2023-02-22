@@ -72,14 +72,12 @@
 int main(int ac, char **av, char **env)
 {
 	char	*path;
-	
+	(void)env;
 	if (ac != 5)
 		return (p(NULL, 0, 1), 0);
-	// if (!path)
-	// 	return (path env var doesn\'t exists, or )
-
-	path = path_is(env, av[1]); // child
-	printf("%s\n", path);
+	if (!(path = path_is(env, av[2]))) // child
+		return (p(__FILE__, __LINE__, 2), -1);
+	printf("main : %s\n", path);
 	// path = path_is(env, av[3]); // parent
 	// pipe(fd);
 	return (0);
