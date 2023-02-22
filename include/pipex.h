@@ -1,5 +1,6 @@
 #ifndef PIPEX_H
 # define PIPEX_H
+
 // **	Libft header
 #include "../Libft/libft.h"
 // **	get_next_line()
@@ -19,7 +20,11 @@
 // ** Errno global variable
 #include <errno.h>
 
-// ** Gets PATH variable from the environment
-char *path_is(char **env);
+// ** Get PATH variable from the environment
+char *path_is(char **env, char *cmd);
+// ** Print a message
+void p(char *file, int line, int msg);
+// **	free memory allocated
+void free_st(char **split, int not_this_one);
 
 #endif // PIPEX_H
