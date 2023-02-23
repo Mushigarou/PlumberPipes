@@ -77,6 +77,8 @@ int main(int ac, char **av, char **env)
 		return (p(NULL, 0, 1), 0);
 	if (!(path = path_is(env, av[2]))) // child
 		return (p(__FILE__, __LINE__, 2), -1);
+	// free(path);
+	
 	printf("main : %s\n", path);
 	// path = path_is(env, av[3]); // parent
 	// pipe(fd);

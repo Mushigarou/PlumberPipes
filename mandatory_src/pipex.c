@@ -47,25 +47,16 @@ char	*join_path(char **split, char *cmd)
 	av_cmd = ft_split(cmd, ' ');
 	tmp = ft_strjoin("/", av_cmd[0]);
 	free_st(av_cmd, -1);
-	// if (strncmp(tmp+1, "./", 2) == 0)
-	// {
-	// 	printf("tmp = %s\n", tmp);
-	// 	printf("\notu\n");
-	// 	path = ft_strjoin(split[i], tmp);
-	// 	if (access(path, X_OK | F_OK) == 0)
-	// 		return (free_st(split, -1), free(tmp), path);
-	// }
-	// else
-	// {
-		while (split && split[i])
-		{
+	while (split && split[i])
+	{
+		if (access(av_cmd[0], X_OK | F_OK) == 0)
+			return (free(tmp), free_st(av_cmd, 0), av_cmd[0]);
 			path = ft_strjoin(split[i], tmp);
-			if (access(path, X_OK) == 0)
-				return (free_st(split, -1), free(tmp), path);
-			free(path);
-			i++;
-		}
-	// }
+		if (access(path, X_OK | F_OK) == 0)
+			return (free_st(split, -1), free(tmp), free_st(av_cmd, -1), path);
+		free(path);
+		i++;
+	}
 	free(tmp);
 	free_st(split, -1);
 	return (NULL);
@@ -88,6 +79,7 @@ char *path_is(char **env, char *cmd)
 				return (p(__FILE__, __LINE__, 0), perror("split"), NULL);
 			return (join_path(split, cmd));
 		}
+		//strnstr(*env, "PWD=")
 		env++;
 	}
 	return (NULL);
