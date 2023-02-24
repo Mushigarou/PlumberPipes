@@ -20,11 +20,15 @@
 // ** Errno global variable
 #include <errno.h>
 
-// ** Get PATH variable from the environment
-char *path_is(char **env, char *cmd);
 // ** Print a message
-void p(char *file, int line, int msg);
-// **	free memory allocated
-void free_st(char **split, int not_this_one);
+void	p(char *file, int line, int msg);
+// **	Free memory allocated
+void	free_st(char **split, int not_this_one);
+// ** Get PATH variable from the environment, returns path of the command
+char	*path_is(char **env, char *cmd);
+// **	Read from the input file, then writes in the pipe
+char	*read_cmd(char **av, char **env, int fd[]);
+// **	Reads from the pipe, then writes in outfile
+char *write_cmd(char **av, char **env, int fd[]);
 
 #endif // PIPEX_H
