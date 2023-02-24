@@ -1,4 +1,4 @@
-NAME = bin/pipex
+NAME = pipex
 
 CC = cc
 

@@ -34,43 +34,57 @@
 
 #include "pipex.h"
 
-char	*read_cmd(char **av, char **env, int fd[])
+char	*write_cmd(char **av, char **env, int fd[])
 {
 	char	*path;
 	int		in_fd;
 
 	path = NULL;
 	close(fd[0]);
-	in_fd = open(av[1], O_RDONLY, 0777);
+	in_fd = open(av[1], O_RDONLY, 0444);
 	if (in_fd == -1)
-		return (perror("open 1"), NULL);
+	{
+		perror("open 1");
+		exit(1);
+	}
 	dup2(in_fd, STDIN_FILENO);
 	close(in_fd);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
 	if (!(path = path_is(env, av[2])))
-		return (p(__FILE__, __LINE__, 2), NULL);
+	{
+		perror("pipex");
+		exit(1);
+	}
 	execve(path, ft_split(av[2], ' '), env);
+	exit(1);
 	return (NULL);
 }
 
-char	*write_cmd(char **av, char **env, int fd[])
+char	*read_cmd(char **av, char **env, int fd[])
 {
 	char	*path;
 	int		out_fd;
 
 	path = NULL;
-	out_fd = open(av[4], O_CREAT | O_TRUNC | O_WRONLY, 0777);
+	out_fd = open(av[4], O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (out_fd == -1)
-		return (perror("open 2"), NULL);
+	{
+		perror("open 2");
+		exit(1);
+	}
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 	dup2(out_fd, STDOUT_FILENO);
 	close(out_fd);
 	if (!(path = path_is(env, av[3])))
-		return ((p(__FILE__, __LINE__, 2), NULL));
+	{
+		perror("pipex");
+		exit(1);
+	}
 	execve(path, ft_split(av[3], ' '), env);
+	exit(1);
 	return (NULL);
 }
 char	*join_path(char **split, char *cmd)
@@ -86,13 +100,26 @@ char	*join_path(char **split, char *cmd)
 	av_cmd = ft_split(cmd, ' ');
 	if (!split)
 		return (free_st(split, -1), NULL);
+	tmp = NULL;
+	if (av_cmd[0][0] == '/')
+	{
+		if (access(av_cmd[0], X_OK | F_OK) == 0)
+			return (free_st(split, -1), free(tmp), free_st(av_cmd, 0), av_cmd[0]);
+		else
+		{
+			perror("access");
+			exit(1);
+		}
+		
+	}
 	tmp = ft_strjoin("/", av_cmd[0]);
 	free_st(av_cmd, -1);
 	while (split && split[i])
 	{
-		if (access(av_cmd[0], X_OK | F_OK) == 0)
-			return (free_st(split, -1), free(tmp), free_st(av_cmd, 0), av_cmd[0]);
-			path = ft_strjoin(split[i], tmp);
+		if (i == 0)
+			if (access(av_cmd[0], X_OK | F_OK) == 0)
+				return (free_st(split, -1), free(tmp), free_st(av_cmd, 0), av_cmd[0]);
+		path = ft_strjoin(split[i], tmp);
 		if (access(path, X_OK | F_OK) == 0)
 			return (free_st(split, -1), free(tmp), free_st(av_cmd, -1), path);
 		free(path);
@@ -100,6 +127,7 @@ char	*join_path(char **split, char *cmd)
 	}
 	free(tmp);
 	free_st(split, -1);
+	exit(1);
 	return (NULL);
 }
 
@@ -116,10 +144,11 @@ char *path_is(char **env, char *cmd)
 		{
 			split = ft_split(*env + 5, ':');
 			if (!split)
-				return (p(__FILE__, __LINE__, 0), perror("split"), NULL);
+				return (perror("split"), NULL);
 			return (join_path(split, cmd));
 		}
 		env++;
 	}
+	exit(1);
 	return (NULL);
 }
