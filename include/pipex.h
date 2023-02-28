@@ -27,8 +27,16 @@ void	free_st(char **split, int not_this_one);
 // ** Get PATH variable from the environment, returns path of the command
 char	*path_is(char **env, char *cmd);
 // **	Read from the input file, then writes in the pipe
-char	*write_cmd(char **av, char **env, int fd[]);
+void	write_cmd(char **av, char **env, int fd[]);
 // **	Reads from the pipe, then writes in outfile
-char *read_cmd(char **av, char **env, int fd[]);
+void	read_cmd(char **av, char **env, int fd[]);
+
+// **	Read from the input file, then writes in the pipe
+char *first_cmd(char **av, char **env, int fd[]);
+
+char *middle_cmd(char **av, char **env, int *fd[], int i);
+
+// **	Reads from the pipe, then writes in outfile
+char *last_cmd(int ac, char **av, char **env, int fd[]);
 
 #endif // PIPEX_H
