@@ -40,8 +40,12 @@ debug :
 	make
 	$(CC) $(CFLAGS) -fsanitize=address $(OBJ_M_SRC_PATH) $(LIBFT_ARCHIVE) -o $(NAME)
 
-# bonus : dir lib $(OBJ_B_SRC_PATH)
-# 	$(CC) $(CFLAGS) $(OBJ_B_SRC_PATH) $(LIBFT_ARCHIVE) -o $(NAME)
+debug_b : lib dir $(OBJ_B_SRC_PATH)
+	make
+	$(CC) $(CFLAGS) -fsanitize=address $(OBJ_B_SRC_PATH) $(LIBFT_ARCHIVE) -o $(NAME)
+
+bonus : dir lib $(OBJ_B_SRC_PATH)
+	$(CC) $(CFLAGS) $(OBJ_B_SRC_PATH) $(LIBFT_ARCHIVE) -o $(NAME)
 
 obj/%.o : bonus_src/%.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@ -I include -I Libft

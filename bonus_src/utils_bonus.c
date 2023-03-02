@@ -38,10 +38,13 @@ void free_st(char **split, int not_this_one)
 void	close_fd(int **fd)
 {
 	int	i;
-	int size = sizeof(fd) / sizeof(fd[i])
-
+	int size;
+	
+	if (!fd || !(*fd))
+		return ;
+	size = sizeof(fd) / sizeof(fd[i]);
 	i = 0;
-	while (i < size)
+	while (i < size-1)
 	{
 		close(fd[i][0]);
 		close(fd[i][1]);
