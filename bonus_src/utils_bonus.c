@@ -2,17 +2,10 @@
 
 #include "../include/pipex.h"
 
-void p(char *file, int line, int msg)
+void msg(char *err, int status)
 {
-	if (msg == 0 && file && line != 0)
-		ft_printf("%s line %d	", file, line);
-	else if (msg == 1)
-		ft_printf("./pipex infile cmd1 cmd2 outfile");
-	else if (msg == 2)
-	{
-		ft_printf("%s line %d	", file, line);
-		ft_printf("PATH or command not found");
-	}
+	perror(err);
+	exit(status);
 	return;
 }
 
@@ -49,5 +42,14 @@ void	close_fd(int **fd)
 		close(fd[i][0]);
 		close(fd[i][1]);
 		i++;
+	}
+}
+
+void	ft_dup2(int old, int new)
+{
+	if (dup2(old, new) < 0)
+	{
+		perror("dup2");
+		exit(1);
 	}
 }
