@@ -10,8 +10,8 @@ void	middle_cmd(char *av, char **env)
 	if (!tmp || !(*tmp))
 		msg("pipex: command not found\n", 127);
 	path = path_is(env, tmp[0]);
-	if (execve(path, tmp, env) < 0)
-		{perror("execve 2");exit(126);}
+	execve(path, tmp, env);
+	msg("execve", 126);
 }
 
 void first_cmd(char **av, char **env, int fd[])
@@ -27,14 +27,14 @@ void first_cmd(char **av, char **env, int fd[])
 	in_fd = open(av[1], O_RDONLY);
 	if (in_fd == -1)
 		{perror("open 1");exit(1);}
-	close(fd[0]);
 	ft_dup2(in_fd, STDIN_FILENO);
-	close(in_fd);
 	ft_dup2(fd[1], STDOUT_FILENO);
-	close(fd[1]);
+	// close(fd[0]);
+	// close(in_fd);
+	// close(fd[1]);
 	path = path_is(env, av[2]);
-	if (execve(path, tmp, env) < 0)
-		{perror("execve 1");exit(126);}
+	execve(path, tmp, env);
+	msg("execve", 126);
 }
 
 void last_cmd(int ac, char **av, char **env, int fd[])
@@ -55,8 +55,8 @@ void last_cmd(int ac, char **av, char **env, int fd[])
 	close(fd[1]);
 	close(out_fd);
 	close(fd[0]);
-	if (execve(path, tmp, env) < 0)
-		{perror("execve 3");exit(126);}
+	execve(path, tmp, env);
+	msg("execve", 126);
 }
 
 char *join_path(char **split, char *cmd)

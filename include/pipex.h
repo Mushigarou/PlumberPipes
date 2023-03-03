@@ -1,28 +1,35 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-// **	Libft header
-#include "../Libft/libft.h"
-// **	get_next_line()
-#include "../Libft/get_next_line.h"
-// **	ft_printf()
-#include "../Libft/ft_printf.h"
-// **	exit(), malloc(), free()
-#include <stdlib.h>
-// **	sterror(), perror()
-#include <stdio.h>
-// **	read(), write(), close(), access(), dup(), dup2(), execve(), fork(), pipe(), unlink()
-#include <unistd.h>
-// **	open()
-#include <fcntl.h>
-// **	wait(), waitpid()
-#include <sys/wait.h>
-// **	Errno global variable
-#include <errno.h>
+# define CMD_SYNTAX "<./ pipex > <infile><cmd_1>...<cmd_n><outfile>"
 
-typedef struct	s_pipe{
-	int	fd[2];
-} s_pipe;
+// **	Libft header
+# include "../Libft/libft.h"
+// **	get_next_line()
+# include "../Libft/get_next_line.h"
+// **	ft_printf()
+# include "../Libft/ft_printf.h"
+// **	exit(), malloc(), free()
+# include <stdlib.h>
+// **	sterror(), perror()
+# include <stdio.h>
+// **	read(), write(), close(), access(), dup(), dup2(), execve(), fork(), pipe(), unlink()
+# include <unistd.h>
+// **	open()
+# include <fcntl.h>
+// **	wait(), waitpid()
+# include <sys/wait.h>
+// **	Errno global variable
+# include <errno.h>
+
+typedef struct	s_data{
+	int		ac;
+	int		arr_size;
+	char	**av;
+	char	**env;
+	int		stat;
+	int		pid;
+} t_data;
 
 // ** Print a message
 void	msg(char *err, int status);
@@ -44,6 +51,6 @@ void	last_cmd(int ac, char **av, char **env, int fd[]);
 // **	Closes all file descriptors
 void	close_fd(int **fd);
 
-void ft_dup2(int old, int new);
+void	ft_dup2(int old, int new);
 
 #endif	// PIPEX_H
