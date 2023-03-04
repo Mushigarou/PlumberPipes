@@ -53,3 +53,30 @@ void	ft_dup2(int old, int new)
 		exit(1);
 	}
 }
+
+void close_pipes(int i, int ac, int fd[][2])
+{
+	int	j;
+
+	j = i;
+	if (i == 0)
+	{	
+		while (j < ac - 4)
+		{
+			if (close(fd[j][0]) != 0)
+				msg("close_1", 1);
+			if (j != i)
+				if (close(fd[j][1]) != 0)
+					msg("close_1", 1);
+			j++;
+		}
+		return ;
+	}
+	while (j < ac - 4)
+	{
+
+		close(fd[j][0]);
+		close(fd[j][1]);
+		j++;
+	}
+}

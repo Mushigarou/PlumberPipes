@@ -53,4 +53,6 @@ void	close_fd(int **fd);
 
 void	ft_dup2(int old, int new);
 
+void close_pipes(int i, int ac, int fd[][2]);
+
 #endif	// PIPEX_H
