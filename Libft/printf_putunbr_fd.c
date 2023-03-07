@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int printf_putunbr_fd(unsigned int n, int fd)
+int	printf_putunbr_fd(unsigned int n, int fd)
 {
 	int	len;
 

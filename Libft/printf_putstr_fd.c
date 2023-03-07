@@ -2,7 +2,7 @@
 
 #include "libft.h"
 
-int printf_putstr_fd(char *s, int fd)
+int	printf_putstr_fd(char *s, int fd)
 {
 	int	len;
 

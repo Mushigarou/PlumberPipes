@@ -2,7 +2,7 @@
 
 #include "libft.h"
 
-int printf_putnbr_fd(int n, int fd)
+int	printf_putnbr_fd(int n, int fd)
 {
 	int	len;
 

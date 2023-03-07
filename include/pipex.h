@@ -1,7 +1,14 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# define CMD_SYNTAX "<./ pipex > <infile><cmd_1>...<cmd_n><outfile>"
+// **	Maximum nbr of fd's is 10240 per process or shell
+// **	10240 /2 = 5120 pipes, since each pipe need 2 fd's
+# define PIPES 5120
+//**	Err message
+# define CMD_SYNTAX "./pipex \"infile\" \"cmd_1 -options\"\
+ ...\"cmd_n -options\" \"outfile\"\n"
+# define CMD_SYNTAX_M "./pipex \"infile\" \"cmd_1 -options\"\
+ \"cmd_2 -options\" \"outfile\"\n"
 
 // **	Libft header
 # include "../Libft/libft.h"
@@ -13,7 +20,8 @@
 # include <stdlib.h>
 // **	sterror(), perror()
 # include <stdio.h>
-// **	read(), write(), close(), access(), dup(), dup2(), execve(), fork(), pipe(), unlink()
+// **	read(), write(), close(), access(), dup(), dup2(), 
+//			execve(), fork(), pipe(), unlink()
 # include <unistd.h>
 // **	open()
 # include <fcntl.h>
@@ -22,17 +30,18 @@
 // **	Errno global variable
 # include <errno.h>
 
-typedef struct	s_data{
+typedef struct s_data{
 	int		ac;
-	int		arr_size;
+	int		pipes_nbr;
 	char	**av;
 	char	**env;
 	int		stat;
 	int		pid;
-} t_data;
+	int		fd[][2];
+}	t_data;
 
 // ** Print a message
-void	msg(char *err, int status);
+void	msg(char *err, int status, int bool);
 // **	Free memory allocated
 void	free_st(char **split, int not_this_one);
 // **	Get PATH variable from the environment, returns path of the command
@@ -50,9 +59,9 @@ void	middle_cmd(char *av, char **env);
 void	last_cmd(int ac, char **av, char **env, int fd[]);
 // **	Closes all file descriptors
 void	close_fd(int **fd);
-
-void	ft_dup2(int old, int new);
-
-void close_pipes(int i, int ac, int fd[][2]);
+// **	Checks return value of dup2()
+void	ft_dup2(int old, int new, char *err);
+// **	Closes all given pipes
+void	close_pipes(int i, int ac, int fd[][2]);
 
 #endif	// PIPEX_H

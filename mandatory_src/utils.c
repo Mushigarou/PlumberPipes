@@ -11,7 +11,21 @@ void	p(char *file, int line, int msg)
 		ft_printf("%s line %d	", file, line);
 		ft_printf("PATH or command not found");
 	}
-	return;
+	return ;
+}
+
+void	msg(char *err, int status, int bool)
+{
+	if (bool == 0)
+	{
+		perror(err);
+		exit(status);
+	}
+	else
+	{
+		write(2, err, ft_strlen(err));
+		exit(status);
+	}
 }
 
 // **	if not_this_one is set, it will free all the pointers,

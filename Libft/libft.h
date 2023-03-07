@@ -72,9 +72,9 @@ size_t	ft_strlen_gnl(const char *s);
 char	*ft_strcat_gnl(char *s1, char *s2, char *str, size_t len);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 
-int printf_putchar_fd(char c, int fd);
-int printf_putnbr_fd(int n, int fd);
-int printf_putstr_fd(char *s, int fd);
-int printf_putunbr_fd(unsigned int n, int fd);
+int		printf_putchar_fd(char c, int fd);
+int		printf_putnbr_fd(int n, int fd);
+int		printf_putstr_fd(char *s, int fd);
+int		printf_putunbr_fd(unsigned int n, int fd);
 
 #endif // #define LIBFT_H
