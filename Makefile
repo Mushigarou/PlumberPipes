@@ -55,9 +55,10 @@ clean :
 	$(RM) obj
 
 fclean : clean re_lib
-	$(RM) $(LIBFT_ARCHIVE) bin
+	$(RM) $(LIBFT_ARCHIVE) $(NAME)
 
 re : re_lib fclean all
 
-.PHONY : all $(NAME) clean fclean re lib dir re_lib debug bonus
+.PHONY : all $(NAME) clean fclean re lib dir re_lib debug bonus debug_b
+.SILENT : re fclean clean bonus debug debug_b re_lib lib dir $(NAME) all 
 .DEFAULT_GOAL := all

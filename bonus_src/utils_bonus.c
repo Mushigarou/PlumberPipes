@@ -43,3 +43,12 @@ void	ft_dup2(int old, int new, char *err)
 		exit(1);
 	}
 }
+
+void	init_data(t_data *data, int ac, char **av, char **env)
+{
+	ft_memset(data, 0, sizeof(t_data));
+	data->av = av;
+	data->ac = ac;
+	data->env = env;
+	data->filename = heredoc_filename(data);
+}

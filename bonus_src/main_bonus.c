@@ -19,7 +19,9 @@ void	exec_child(t_data data, int fd[2], int i)
 	if (i == 0)
 	{
 		if (ft_strncmp(data.av[1], "here_doc", 9) == 0)
-		{
+		{	
+			if (data.ac < 6)
+				msg(CMD_SYNTAX_H, 1, 1);
 			here_document(data, fd);
 		}
 		else
@@ -39,10 +41,7 @@ int	main(int ac, char **av, char **env)
 
 	if (ac < 5 || !av || !(*av) || !env || !(*env))
 		msg(CMD_SYNTAX, 1, 1);
-	ft_memset(&data, 0, sizeof(t_data));
-	data.av = av;
-	data.ac = ac;
-	data.env = env;
+	init_data(&data, ac, av, env);
 	while (data.i < ac - 3)
 	{
 		if (pipe(fd) != 0)
@@ -57,7 +56,8 @@ int	main(int ac, char **av, char **env)
 		close(fd[1]);
 		data.i++;
 	}
-	if (access(ft_strjoin("../", data.filename), F_OK) == 0)
-		unlink(ft_strjoin("../", data.filename));
+	if (access(data.filename, F_OK) == 0)
+		if (unlink(data.filename) != 0)
+			msg("unlink", 2, 0);
 	wait_childs(data.stat);
 }

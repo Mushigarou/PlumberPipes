@@ -1,14 +1,13 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-// **	Maximum nbr of fd's is 10240 per process or shell
-// **	10240 /2 = 5120 pipes, since each pipe need 2 fd's
-# define PIPES 5120
 //**	Err message
 # define CMD_SYNTAX "./pipex \"infile\" \"cmd_1 -options\"\
  ...\"cmd_n -options\" \"outfile\"\n"
 # define CMD_SYNTAX_M "./pipex \"infile\" \"cmd_1 -options\"\
  \"cmd_2 -options\" \"outfile\"\n"
+# define CMD_SYNTAX_H "./pipex here_doc DELIMITER \"cmd_1 -options\"\
+ ...\"cmd_n -options\" \"outfile\"\n"
 
 // **	Libft header
 # include "../Libft/libft.h"
@@ -63,5 +62,9 @@ void	last_cmd(int ac, char **av, char **env, int fd[]);
 void	ft_dup2(int old, int new, char *err);
 
 void	here_document(t_data data, int fd[]);
+
+char	*heredoc_filename(t_data *data);
+
+void	init_data(t_data *data, int ac, char **av, char **env);
 
 #endif // PIPEX_H
