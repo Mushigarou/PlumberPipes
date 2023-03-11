@@ -14,7 +14,7 @@ SRC = 	ft_isalnum.c	ft_isascii.c	ft_isprint.c	ft_strlcpy.c	\
 		ft_lstclear.c	ft_lstmap.c	 	ft_lstadd_back.c get_next_line.c \
 		get_next_line_utils.c	conv_hex.c ft_printf.c 	\
 		wr_address.c 	printf_putchar_fd.c 	printf_putnbr_fd.c \
-		printf_putstr_fd.c 	printf_putunbr_fd.c 	
+		printf_putstr_fd.c 	printf_putunbr_fd.c 	ft_rand.c
 
 #----------------------------------------------------------------------------------------------
 # Adding the object directory path as a prefix to the source files

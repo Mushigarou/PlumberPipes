@@ -15,11 +15,17 @@
 #  define  NULL_CHAR 1
 # endif // #define NULL_CHAR
 
+// typedef struct s_rand
+// {
+// 	unsigned long long	rand;
+// }	t_rand;
+
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
 char	*ft_itoa(int n);
 char	*ft_itoa(int n);
 int		ft_isalnum(int c);
@@ -77,4 +83,6 @@ int		printf_putnbr_fd(int n, int fd);
 int		printf_putstr_fd(char *s, int fd);
 int		printf_putunbr_fd(unsigned int n, int fd);
 
+typedef unsigned long long	t_ull;
+t_ull	ft_rand(void);
 #endif // #define LIBFT_H

@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-void	middle_cmd(char *av, char **env)
+void	middle_cmd(char *av, char **env, int fd[2])
 {
 	char	*path;
 	char	**tmp;
@@ -10,6 +10,9 @@ void	middle_cmd(char *av, char **env)
 	if (!tmp || !(*tmp))
 		msg("pipex: command not found:mid_cmd\n", 127, 1);
 	path = path_is(env, tmp[0]);
+	ft_dup2(fd[1], STDOUT_FILENO, "dup2_mid");
+	close(fd[1]);
+	close(fd[0]);
 	execve(path, tmp, env);
 	msg("execve", 126, 0);
 }
@@ -32,6 +35,8 @@ void	first_cmd(char **av, char **env, int fd[])
 	ft_dup2(in_fd, STDIN_FILENO, "dup2:1st_cmd");
 	ft_dup2(fd[1], STDOUT_FILENO, "dup22:1st_cmd");
 	close(fd[1]);
+	close(fd[0]);
+	close(in_fd);
 	path = path_is(env, av[2]);
 	execve(path, tmp, env);
 	msg("execve", 126, 0);
