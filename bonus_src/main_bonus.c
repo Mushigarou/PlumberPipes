@@ -1,16 +1,5 @@
 #include "pipex.h"
 
-typedef struct s_data
-{
-	char	**av;
-	char	**env;
-	int		ac;
-	int		pid;
-	int		stat;
-	int		i;
-
-}	t_data;
-
 void	wait_childs(int stat)
 {
 	int	st;
@@ -28,7 +17,14 @@ void	wait_childs(int stat)
 void	exec_child(t_data data, int fd[2], int i)
 {
 	if (i == 0)
-		first_cmd(data.av, data.env, fd);
+	{
+		if (ft_strncmp(data.av[1], "here_doc", 9) == 0)
+		{
+			here_document(data, fd);
+		}
+		else
+			first_cmd(data.av, data.env, fd);
+	}
 	else if (i == data.ac - 4)
 		last_cmd(data.ac, data.av, data.env, fd);
 	else
@@ -56,10 +52,12 @@ int	main(int ac, char **av, char **env)
 			exec_child(data, fd, data.i);
 		if (data.i < ac - 4)
 			wait_childs(data.stat);
-		ft_dup2(fd[0], STDIN_FILENO, "dup2_maina");
+		ft_dup2(fd[0], STDIN_FILENO, "dup2_main");
 		close(fd[0]);
 		close(fd[1]);
 		data.i++;
 	}
+	if (access(ft_strjoin("../", data.filename), F_OK) == 0)
+		unlink(ft_strjoin("../", data.filename));
 	wait_childs(data.stat);
 }

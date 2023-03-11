@@ -30,6 +30,18 @@
 // **	Errno global variable
 # include <errno.h>
 
+typedef struct s_data
+{
+	char	**av;
+	char	**env;
+	int		ac;
+	char	*filename;
+	int		pid;
+	int		stat;
+	int		i;
+
+}	t_data;
+
 // ** Print a message
 void	msg(char *err, int status, int bool);
 // **	Free memory allocated
@@ -49,5 +61,7 @@ void	middle_cmd(char *av, char **env, int fd[2]);
 void	last_cmd(int ac, char **av, char **env, int fd[]);
 // **	Checks return value of dup2()
 void	ft_dup2(int old, int new, char *err);
+
+void	here_document(t_data data, int fd[]);
 
 #endif // PIPEX_H

@@ -13,6 +13,6 @@ unsigned long long	ft_rand(void)
 {
 	static unsigned long long	rand;
 
-	rand = rand * 6364136223846793005 + 1;
-	return ((unsigned long long)(rand) % ULLONG_MAX);
+	rand = rand * 1103515245 + 12345;
+	return ((unsigned long long)(rand) % 2147483648);
 }
