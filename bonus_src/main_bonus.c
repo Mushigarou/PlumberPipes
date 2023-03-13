@@ -49,8 +49,6 @@ int	main(int ac, char **av, char **env)
 		data.pid = fork();
 		if (data.pid == 0)
 			exec_child(data, fd, data.i);
-		if (data.i < ac - 4)
-			wait_childs(data.stat);
 		ft_dup2(fd[0], STDIN_FILENO, "dup2_main");
 		close(fd[0]);
 		close(fd[1]);
