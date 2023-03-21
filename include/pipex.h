@@ -10,11 +10,11 @@
  ...\"cmd_n -options\" \"outfile\"\n"
 
 // **	Libft header
-# include "../Libft/libft.h"
+# include "../Libft/inc/libft.h"
 // **	get_next_line()
-# include "../Libft/get_next_line.h"
+# include "../Libft/inc/get_next_line.h"
 // **	ft_printf()
-# include "../Libft/ft_printf.h"
+# include "../Libft/inc/ft_printf.h"
 // **	exit(), malloc(), free()
 # include <stdlib.h>
 // **	sterror(), perror()
@@ -28,6 +28,8 @@
 # include <sys/wait.h>
 // **	Errno global variable
 # include <errno.h>
+// **	for 'bool' type
+# include <stdbool.h>
 
 typedef struct s_data
 {
@@ -42,7 +44,7 @@ typedef struct s_data
 }	t_data;
 
 // ** Print a message
-void	msg(char *err, int status, int bool);
+void	msg(char *err, int status, int bol);
 // **	Free memory allocated
 void	free_st(char **split, int not_this_one);
 // **	Get PATH variable from the environment, returns path of the command
