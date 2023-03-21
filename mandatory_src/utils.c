@@ -1,8 +1,8 @@
 #include "../include/pipex.h"
 
-void	msg(char *err, int status, int bool)
+void	msg(char *err, int status, int bol)
 {
-	if (bool == 0)
+	if (bol == 0)
 	{
 		perror(err);
 		exit(status);

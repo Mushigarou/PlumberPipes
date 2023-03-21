@@ -39,8 +39,10 @@ int	ft_atoi(const char *str)
 		sign *= -1;
 		str++;
 	}
+	// "   +kladjsfh"
 	else if (*str == '+')
 		str++;
+	// if (is)
 	while (*str != '\0' && ft_isdigit(*str))
 	{
 		check = res;
@@ -51,5 +53,7 @@ int	ft_atoi(const char *str)
 			return (-1);
 		str++;
 	}
+	// if (*str != 0)
+	// 	error
 	return (res * sign);
 }
