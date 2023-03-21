@@ -1,5 +1,6 @@
 #include "pipex.h"
 
+// **	Checks exit status of the child
 void	wait_childs(int stat)
 {
 	int	st;
@@ -14,6 +15,7 @@ void	wait_childs(int stat)
 	}
 }
 
+// **	Executes the command based on its index, or position
 void	exec_child(t_data data, int fd[2], int i)
 {
 	if (i == 0)
@@ -34,6 +36,7 @@ void	exec_child(t_data data, int fd[2], int i)
 	exit(1);
 }
 
+// **	Simulates bash redirection, heredoc and pipes
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
@@ -49,13 +52,16 @@ int	main(int ac, char **av, char **env)
 		data.pid = fork();
 		if (data.pid == 0)
 			exec_child(data, fd, data.i);
+		if (data.i < ac - 4)
+			wait_childs(data.stat);
 		ft_dup2(fd[0], STDIN_FILENO, "dup2_main");
 		close(fd[0]);
 		close(fd[1]);
 		data.i++;
+		if (access(data.filename, F_OK) == 0)
+			if (unlink(data.filename) != 0)
+				msg("unlink", 2, 0);
+		wait_childs(data.stat);
 	}
-	if (access(data.filename, F_OK) == 0)
-		if (unlink(data.filename) != 0)
-			msg("unlink", 2, 0);
 	wait_childs(data.stat);
 }

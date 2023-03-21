@@ -16,9 +16,9 @@
 **		parent's process (in child process) = 9406
 **		parent's process (in parent process) = 6907
 **	************
-**		parent's id = Child's process  (in child process)
-**		Child's process  (in parent process) = parent's process(in child process
-**		parent's process (in parent process) is a unique pid
+**		parent's id = Child's id (in child process)
+**		Child's id  (in parent process) = parent's id(in child process
+**		parent's id (in parent process) is a unique pid
 
 */
 #include "pipex.h"

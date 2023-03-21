@@ -50,5 +50,5 @@ void	init_data(t_data *data, int ac, char **av, char **env)
 	data->av = av;
 	data->ac = ac;
 	data->env = env;
-	data->filename = heredoc_filename(data);
+	heredoc_filename(&data);
 }

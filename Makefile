@@ -52,7 +52,7 @@ obj/%.o : bonus_src/%.c $(HEADER)
 
 clean :
 	make clean -C Libft
-	$(RM) obj
+	$(RM) obj heredoc_*
 
 fclean : clean re_lib
 	$(RM) $(LIBFT_ARCHIVE) $(NAME)

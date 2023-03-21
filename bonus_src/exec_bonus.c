@@ -44,7 +44,7 @@ void	first_cmd(char **av, char **env, int fd[])
 
 int	open_outfile(char **av, int ac, int out_fd)
 {
-	if (ft_strncmp(av[2], "here_doc", 9))
+	if (ft_strncmp(av[1], "here_doc", 9) == 0)
 	{
 		out_fd = open(av[ac - 1], O_CREAT | O_APPEND | O_WRONLY, 0644);
 		if (out_fd == -1)
